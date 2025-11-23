@@ -1,0 +1,40 @@
+<p>product-list works!</p>
+
+<div class="container">
+  <button (click)="addTrue()">Add Product</button>
+
+  <div *ngIf = "isAdd">
+    Enter Product Details
+    <img [src]="product.imageUrl" alt="{{ product.name }}" width="200px"/><br>
+    Image URL: <input [(ngModel)]="product.imageUrl"><br>
+    Name: <input [(ngModel)]="product.name"><br>
+    Description: <input [(ngModel)]="product.description"><br>
+    Price: ₹<input [(ngModel)]="product.price"><br>
+    Count<input [(ngModel)]="product.count"><br>
+    <button (click)="addProduct(product)">Add Product</button>
+  </div>
+
+  <div *ngIf = "isEdit">
+    <img [src]="product.imageUrl" alt="{{ product.name }}" width="200px"/><br>
+    Image URL: <input [(ngModel)]="product.imageUrl"><br>
+    Name: <input [(ngModel)]="product.name"><br>
+    Description: <input [(ngModel)]="product.description"><br>
+    Price: ₹<input [(ngModel)]="product.price"><br>
+    Count<input [(ngModel)]="product.count"><br>
+    <button (click)="updateProduct(product)">Update Product Details</button>
+  </div>
+
+  <h2>🛍️ Product List</h2>
+  <button (click)="getProducts()">Click to see Products</button>
+  <br>
+  <div class="product-grid">
+    <div class="product-card" *ngFor="let product of products">
+      <img [src]="product.imageUrl" alt="{{ product.name }}" />
+      <h3>{{ product.name }}</h3>
+      <p class="price">₹{{ product.price }}</p>
+      <p class="desc">{{ product.description | slice:0:100 }}...</p>
+      <button (click)="printProduct(product)">Add to Cart</button><br>
+      <button (click)="editTrue(product)">Edit</button>
+    </div>
+  </div>
+</div>

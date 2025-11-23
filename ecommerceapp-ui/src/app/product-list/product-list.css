@@ -1,0 +1,44 @@
+/* src/app/product-list/product-list.component.css */
+.container {
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.product-card {
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.price {
+  font-weight: bold;
+  color: #007bff;
+}
+
+button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
