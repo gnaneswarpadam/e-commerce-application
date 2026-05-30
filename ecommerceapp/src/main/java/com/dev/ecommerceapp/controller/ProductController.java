@@ -25,7 +25,7 @@ public class ProductController {
 	@Autowired
 	ProductImageRepository productImageRepository;
 	
-	@GetMapping(value = "/getProductDetails")
+	@GetMapping(value = "/getProductDetails") 
 	public List<Product> getProductDetails() {
 		return productRepository.findAll();
 	}
