@@ -6,20 +6,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dev.ecommerceapp.model.Cart;
-import com.dev.ecommerceapp.service.CartServiceImpl;
+import com.dev.ecommerceapp.model.Order;
+import com.dev.ecommerceapp.service.OrderServiceImpl;
 
 @RestController
-@RequestMapping("cart")
-public class CartController {
+@RequestMapping("order")
+public class OrderController {
 	
 	@Autowired
-	private CartServiceImpl cartServiceImpl;
+	private OrderServiceImpl orderServiceImpl;
 	
-	@PostMapping("addItem")
-	public String addItem(@RequestBody Cart cart) {
-		System.out.println(cart);
-		return cartServiceImpl.addItem(cart);
+	@PostMapping("/createOrder")
+	public String createOrder(@RequestBody Order order) {
+		return orderServiceImpl.createOrder(order);
 	}
-
 }
