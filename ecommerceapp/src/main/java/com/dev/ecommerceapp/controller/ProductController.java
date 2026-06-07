@@ -11,28 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dev.ecommerceapp.model.Product;
 import com.dev.ecommerceapp.model.ProductDetailsDTO;
-import com.dev.ecommerceapp.model.ProductImage;
-import com.dev.ecommerceapp.repository.ProductImageRepository;
-import com.dev.ecommerceapp.repository.ProductRepository;
+import com.dev.ecommerceapp.service.ProductServiceImpl;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class ProductController {
 	
 	@Autowired
-	ProductRepository productRepository;
-	
-	@Autowired
-	ProductImageRepository productImageRepository;
+	private ProductServiceImpl productServiceImpl;
 	
 	@GetMapping(value = "/getProductDetails") 
 	public List<Product> getProductDetails() {
-		return productRepository.findAll();
+		return productServiceImpl.getProductDetails();
 	}
 	
 	@GetMapping(value = "/getAllProductDetails")
 	public List<ProductDetailsDTO> getAllProductDetails() {
-		return productRepository.getAllProductDetails();
+		return productServiceImpl.getAllProductDetails();
 	}
 	
 	@PostMapping(value = "/addProduct")
@@ -40,10 +35,7 @@ public class ProductController {
 		if(dto==null) {
 			return "Product Details aren't received";
 		}
-		Product product = new Product(dto.getName(),dto.getPrice(),dto.getDescription(),dto.getCount());
-		product = productRepository.save(product);
-		productImageRepository.save(new ProductImage(product.getId(),dto.getImageUrl()));
-		return "Details added successfully";
+		return productServiceImpl.addProduct(dto);
 	}
 	
 	@PostMapping(value = "/updateProduct")
@@ -51,10 +43,7 @@ public class ProductController {
 		if(dto==null) {
 			return "Product Details aren't received";
 		}
-		Product product = new Product(dto.getId(),dto.getName(),dto.getPrice(),dto.getDescription(),dto.getCount());
-		product = productRepository.save(product);
-		productImageRepository.save(new ProductImage(dto.getId(),dto.getImageUrl()));
-		return "Details updated successfully";
+		return productServiceImpl.updateProduct(dto);
 	}
 
 }

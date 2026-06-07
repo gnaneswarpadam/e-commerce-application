@@ -1,6 +1,8 @@
 package com.dev.ecommerceapp.model;
 
+import lombok.Getter;
 
+@Getter
 public class UserSignUpDTO {
 
 	private String username;
@@ -16,35 +18,5 @@ public class UserSignUpDTO {
 	private String phoneNumber;
 	
 	private String role;
-
-	public String getUsername() {
-		return username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public String getRole() {
-		return role;
-	}
-	
-	
 
 }

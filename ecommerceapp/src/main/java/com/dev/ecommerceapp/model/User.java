@@ -4,7 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="users")
 public class User {
@@ -32,40 +36,6 @@ public class User {
 	
 	@Column(name = "updated_ts")
 	private String updatedTs;
-
-	
-	/**
-	 * 
-	 */
-	public User() {
-		super();
-	}
-
-
-	/**
-	 * @param username
-	 * @param firstname
-	 * @param lastname
-	 * @param email
-	 * @param phoneNumber
-	 * @param role
-	 * @param createdTS
-	 * @param updatedTs
-	 */
-	public User(String username, String firstname, String lastname, String email, String phoneNumber, String role,
-			String createdTS, String updatedTs) {
-		super();
-		this.username = username;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.role = role;
-		this.createdTS = createdTS;
-		this.updatedTs = updatedTs;
-	}
-	
-	
 	
 	
 }

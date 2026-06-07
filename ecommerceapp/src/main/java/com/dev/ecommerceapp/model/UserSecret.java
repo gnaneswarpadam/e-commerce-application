@@ -6,7 +6,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "user_secret")
 public class UserSecret {
@@ -24,34 +30,4 @@ public class UserSecret {
 	@Column(name = "updated_ts")
 	private LocalDateTime updatedTs;
 
-	/**
-	 * 
-	 */
-	public UserSecret() {
-		super();
-	}
-
-	/**
-	 * @param username
-	 * @param userPassword
-	 * @param createdTs
-	 * @param updatedTs
-	 */
-	public UserSecret(String username, String userPassword, LocalDateTime createdTs, LocalDateTime updatedTs) {
-		super();
-		this.username = username;
-		this.userPassword = userPassword;
-		this.createdTs = createdTs;
-		this.updatedTs = updatedTs;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public String getUserPassword() {
-		return userPassword;
-	}
-
-	
 }

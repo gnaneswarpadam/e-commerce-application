@@ -2,7 +2,6 @@ package com.dev.ecommerceapp.service;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,26 +16,15 @@ import com.dev.ecommerceapp.security.JwtService;
 @Service
 public class UserServiceImpl {
 	
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 	
-	@Autowired
-	private UserSecretRepository userSecretRepository;
+	private final UserSecretRepository userSecretRepository;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 	
-	@Autowired
-	private JwtService jwtService;
+	private final JwtService jwtService;
 	
-	
-	
-	/**
-	 * @param userRepository
-	 * @param userSecretRepository
-	 * @param passwordEncoder
-	 * @param jwtService
-	 */
+
 	public UserServiceImpl(UserRepository userRepository, UserSecretRepository userSecretRepository,
 			PasswordEncoder passwordEncoder, JwtService jwtService) {
 		super();
