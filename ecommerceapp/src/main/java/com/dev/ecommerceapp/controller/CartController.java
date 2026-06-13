@@ -1,6 +1,7 @@
 package com.dev.ecommerceapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +18,8 @@ public class CartController {
 	private CartServiceImpl cartServiceImpl;
 	
 	@PostMapping("addItem")
-	public String addItem(@RequestBody Cart cart) {
-		System.out.println(cart);
+	public String addItem(Authentication authentication, @RequestBody Cart cart) {
+		cart.getId().setUsername(authentication.getName());
 		return cartServiceImpl.addItem(cart);
 	}
 
