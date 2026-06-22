@@ -16,16 +16,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @Embeddable
 public class CartItemId implements Serializable{
-
+	
 	@Column(name = "username")
 	private String username;
 	
 	@Column(name = "product_id")
-	private int product_id;
+	private int productId;
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(username, product_id);
+		return Objects.hash(username, productId);
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class CartItemId implements Serializable{
 		if (obj==null || this.getClass()!=obj.getClass())
 				return false;
 		CartItemId that = (CartItemId) obj;
-		return this.username.equals(that.username) && this.product_id==that.product_id;
+		return this.username.equals(that.username) && this.productId==that.productId;
 	}
 
 

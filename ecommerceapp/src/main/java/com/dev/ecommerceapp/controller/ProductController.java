@@ -3,17 +3,22 @@ package com.dev.ecommerceapp.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dev.ecommerceapp.exception.AppException;
+import com.dev.ecommerceapp.marker.UpdateProductMarker;
 import com.dev.ecommerceapp.model.Product;
 import com.dev.ecommerceapp.model.ProductDetailsDTO;
 import com.dev.ecommerceapp.service.ProductServiceImpl;
 
-@CrossOrigin(origins = "http://localhost:4200")
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 public class ProductController {
 	
@@ -31,18 +36,20 @@ public class ProductController {
 	}
 	
 	@PostMapping(value = "/addProduct")
-	public String addProduct(@RequestBody ProductDetailsDTO dto) {
+	public String addProduct(@Valid @RequestBody ProductDetailsDTO dto) {
 		if(dto==null) {
-			return "Product Details aren't received";
+			throw new AppException("Product Details aren't received");
 		}
+		log.info(dto.toString());
 		return productServiceImpl.addProduct(dto);
 	}
 	
 	@PostMapping(value = "/updateProduct")
-	public String updateProduct(@RequestBody ProductDetailsDTO dto) {
+	public String updateProduct(@Validated(UpdateProductMarker.class) @RequestBody ProductDetailsDTO dto) {
 		if(dto==null) {
-			return "Product Details aren't received";
+			throw new AppException("Product Details aren't received");
 		}
+		log.info(dto.toString());
 		return productServiceImpl.updateProduct(dto);
 	}
 

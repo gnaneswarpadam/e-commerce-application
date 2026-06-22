@@ -22,9 +22,9 @@ public class Cart {
 	private int quantity;
 	
 	@Column(name = "price")
-	private long price;
+	private float price;
 	
-	public Cart(String username, int productId, int quantity, long price) {
+	public Cart(String username, int productId, int quantity, float price) {
 		this.id = new CartItemId(username, productId);
 		this.quantity = quantity;
 		this.price = price;

@@ -34,17 +34,18 @@ public class ProductServiceImpl {
 	public String addProduct(ProductDetailsDTO dto) {
 		Product product = new Product(dto.getName(),dto.getPrice(),dto.getDescription(),dto.getCount());
 		product = productRepository.save(product);
-		productImageRepository.save(new ProductImage(product.getId(),dto.getImageUrl()));
+		if(dto.getImageUrl()!=null) {
+			productImageRepository.save(new ProductImage(product.getId(),dto.getImageUrl()));
+		}
 		return "Details added successfully";
 	}
 	
 	public String updateProduct(ProductDetailsDTO dto) {
-		if(dto==null) {
-			return "Product Details aren't received";
-		}
 		Product product = new Product(dto.getId(),dto.getName(),dto.getPrice(),dto.getDescription(),dto.getCount());
 		product = productRepository.save(product);
-		productImageRepository.save(new ProductImage(dto.getId(),dto.getImageUrl()));
+		if(dto.getImageUrl()!=null) {
+			productImageRepository.save(new ProductImage(dto.getId(),dto.getImageUrl()));
+		}
 		return "Details updated successfully";
 	}
 }

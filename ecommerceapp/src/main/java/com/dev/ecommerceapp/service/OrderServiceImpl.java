@@ -1,5 +1,6 @@
 package com.dev.ecommerceapp.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +28,18 @@ public class OrderServiceImpl {
 	private CartRepository cartRepository;
 
 	@Transactional
-	public String createOrder(Order order) {
-		Order orderCopy = orderRepository.save(order);
-		System.out.println("--------"+orderCopy.getOrderId());
-		List<Cart> cartList = cartRepository.findByUsername(order.getUsername());
+	public String createOrder(String username) {
+		List<Cart> cartList = cartRepository.findByUsername(username);
+		double amount = 0;
+		for(Cart cart : cartList) {
+			amount += (cart.getQuantity() * cart.getPrice());
+		}
+		Order order = new Order(0, username, LocalDateTime.now(), "CREATED", amount);
+		final Order orderCopy = orderRepository.save(order);
 		List<OrderItem> orderItems = cartList.stream()
 				.map((cart) -> new OrderItem( 
-						new OrderItemId(orderCopy.getOrderId(), cart.getId().getProduct_id()), cart.getQuantity(), (int)cart.getPrice()))
+						new OrderItemId(orderCopy.getOrderId(), cart.getId().getProductId()), cart.getQuantity(), (int)cart.getPrice()))
 				.toList();
-		
 		orderItemRepository.saveAll(orderItems);
 		cartRepository.deleteAll(cartList);
 		return "Order Placed Successfully";

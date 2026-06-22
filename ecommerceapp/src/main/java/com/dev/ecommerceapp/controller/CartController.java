@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dev.ecommerceapp.model.Cart;
+import com.dev.ecommerceapp.model.CartDTO;
 import com.dev.ecommerceapp.service.CartServiceImpl;
 
 @RestController
@@ -18,9 +18,9 @@ public class CartController {
 	private CartServiceImpl cartServiceImpl;
 	
 	@PostMapping("addItem")
-	public String addItem(Authentication authentication, @RequestBody Cart cart) {
-		cart.getId().setUsername(authentication.getName());
-		return cartServiceImpl.addItem(cart);
+	public String addItem(Authentication authentication, @RequestBody CartDTO cartDTO) {
+		cartDTO.setUsername(authentication.getName());
+		return cartServiceImpl.addItem(cartDTO);
 	}
 
 }

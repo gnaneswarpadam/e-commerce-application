@@ -28,7 +28,7 @@ public class Product {
 	private String name;
 	
 	@Column(name = "product_price")
-	private double price;
+	private float price;
 	
 	@Column(name = "product_description")
 	private String description;
@@ -37,7 +37,7 @@ public class Product {
 	private int count;
 	
 
-	public Product(String name, double price, String description, int count) {
+	public Product(String name, float price, String description, int count) {
 		super();
 		this.name = name;
 		this.price = price;
