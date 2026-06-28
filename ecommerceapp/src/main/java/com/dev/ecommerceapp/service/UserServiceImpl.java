@@ -8,10 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dev.ecommerceapp.model.User;
 import com.dev.ecommerceapp.model.UserSecret;
-import com.dev.ecommerceapp.model.UserSignUpDTO;
+import com.dev.ecommerceapp.model.UserDetailsDTO;
 import com.dev.ecommerceapp.repository.UserRepository;
 import com.dev.ecommerceapp.repository.UserSecretRepository;
 import com.dev.ecommerceapp.security.JwtService;
+import com.dev.ecommerceapp.support.Constant;
 
 @Service
 public class UserServiceImpl {
@@ -35,19 +36,19 @@ public class UserServiceImpl {
 	}
 
 	@Transactional
-	public String signup(UserSignUpDTO userDetails) {
+	public String signup(UserDetailsDTO userDetails) {
 		
 		User user = new User(userDetails.getUsername(), userDetails.getFirstname(), userDetails.getLastname(), userDetails.getEmail(), 
-					 userDetails.getPhoneNumber(), userDetails.getRole(), null, null);
+					 userDetails.getPhoneNumber(), Constant.USER_ROLE_END_USER, CommonServiceImpl.getCurrentDateTime(), null);
 		userRepository.save(user);
 		
-		UserSecret userSecret = new UserSecret(userDetails.getUsername(), passwordEncoder.encode(userDetails.getPassword()), null, null);
+		UserSecret userSecret = new UserSecret(userDetails.getUsername(), passwordEncoder.encode(userDetails.getPassword()), CommonServiceImpl.getCurrentDateTime(), null);
 		userSecretRepository.save(userSecret);
 		
 		return "Signed Up Successfully";
 	}
 	
-	public String login(UserSignUpDTO userCredentials) {
+	public String login(UserDetailsDTO userCredentials) {
 		Optional<UserSecret> userSecret = userSecretRepository.findById(userCredentials.getUsername());
 		if(userSecret.isEmpty()) {
 			return "Invalid Username";
@@ -56,5 +57,13 @@ public class UserServiceImpl {
 			return "Invalid Password";
 		}
 		return jwtService.generateToken(userSecret.get().getUsername());
+	}
+	
+	public UserDetailsDTO getUserDetails(String username) {
+		Optional<User> userOptional = userRepository.findById(username);
+		User user = userOptional.get();
+		UserDetailsDTO userDetails = UserDetailsDTO.builder().username(username).firstname(user.getFirstname())
+				.lastname(user.getLastname()).email(user.getEmail()).phoneNumber(user.getPhoneNumber()).build();
+		return userDetails;
 	}
 }

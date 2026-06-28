@@ -2,13 +2,22 @@ package com.dev.ecommerceapp.security;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import com.dev.ecommerceapp.repository.UserRepository;
+
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -20,6 +29,9 @@ public class JwtService {
 
     @Value("${jwt.expiration}")
     private long expiration;
+    
+    @Autowired
+    private UserRepository userRepository;
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(
@@ -28,9 +40,12 @@ public class JwtService {
     }
 
     public String generateToken(String username) {
-
+    	
+    	String role = userRepository.getRole(username);
+    	
         return Jwts.builder()
                 .subject(username)
+                .claim("role", role)
                 .issuedAt(new Date())
                 .expiration(
                         new Date(System.currentTimeMillis() + expiration)
@@ -62,21 +77,24 @@ public class JwtService {
                 .getSubject();
     }
     
-//    public List<GrantedAuthority> extractAuthorities(String token) {
-//
-//        Claims claims = Jwts.parser()
-//                .verifyWith((SecretKey)getSigningKey())
-//                .build()
-//                .parseSignedClaims(token)
-//                .getPayload();
-//
-//        List<String> roles =
-//                claims.get("roles", List.class);
-//
-//        return roles.stream()
-//                .map(SimpleGrantedAuthority::new)
-//                .collect(Collectors.toList());
-//    }
+    public List<GrantedAuthority> extractAuthorities(String token) {
+
+        Claims claims = Jwts.parser()
+                .verifyWith((SecretKey)getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+
+        String role =
+                claims.get("role", String.class);
+        
+        List<String> roles = new ArrayList<String>();
+        roles.add(role);
+
+        return roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
     
     
 }
