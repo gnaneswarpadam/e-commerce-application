@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dev.ecommerceapp.exception.AppException;
@@ -20,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
+@RequestMapping("/product")
 public class ProductController {
 	
 	@Autowired
@@ -44,7 +47,7 @@ public class ProductController {
 		return productServiceImpl.addProduct(dto);
 	}
 	
-	@PostMapping(value = "/updateProduct")
+	@PatchMapping(value = "/updateProduct")
 	public String updateProduct(@Validated(UpdateProductMarker.class) @RequestBody ProductDetailsDTO dto) {
 		if(dto==null) {
 			throw new AppException("Product Details aren't received");

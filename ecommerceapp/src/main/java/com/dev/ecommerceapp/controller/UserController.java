@@ -20,12 +20,12 @@ public class UserController {
 	@Autowired
 	private UserServiceImpl userServiceImpl;
 	
-	@PostMapping(value = "/endUser/signup")
+	@PostMapping(value = "/public/endUser/signup")
 	public String signup(@Valid @RequestBody UserDetailsDTO userDetails) {
 		return userServiceImpl.signup(userDetails);
 	}
 	
-	@PostMapping(value = "/login")
+	@PostMapping(value = "/public/login")
 	public String login(@RequestBody UserDetailsDTO userCredentials) {
 		return userServiceImpl.login(userCredentials);
 	}

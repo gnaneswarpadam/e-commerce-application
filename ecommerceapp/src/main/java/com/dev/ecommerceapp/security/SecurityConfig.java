@@ -28,8 +28,8 @@ public class SecurityConfig {
 	                    session.sessionCreationPolicy(
 	                            SessionCreationPolicy.STATELESS))
 	            .authorizeHttpRequests(auth -> auth
-	                    .requestMatchers("/user/**")
-	                    .permitAll()
+	                    .requestMatchers("/user/public/**").permitAll()
+	                    .requestMatchers("/product/addProduct", "product/updateProduct").hasRole("ADMIN")
 	                    .anyRequest()
 	                    .authenticated()
 	            )
