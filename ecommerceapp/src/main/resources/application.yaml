@@ -21,6 +21,10 @@ spring:
 
         # Optional: Logging SQL with formatting
         format_sql: true
+  devtools:
+    livereload:
+      enabled: true
+
 jwt:
   secret: myVeryLongSecretKeyForJwtTokenGeneration123456789
   expiration: 3600000
