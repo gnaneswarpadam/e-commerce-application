@@ -16,7 +16,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Embeddable
 public class CartItemId implements Serializable{
-	
+
+	private static final long serialVersionUID = 1L;
+
 	@Column(name = "username")
 	private String username;
 	
