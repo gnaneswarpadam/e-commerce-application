@@ -1,5 +1,7 @@
 package com.dev.ecommerceapp.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,7 +43,9 @@ public class UserServiceImpl {
 		UserSecret userSecret = UserSecret.builder()
 				.userPassword(passwordEncoder.encode(userDetails.getPassword()))
 				.createdTs(CommonServiceImpl.getCurrentDateTime()).build();
-
+//		List<UserSecret> userSecrets = new ArrayList<UserSecret>();
+//		userSecrets.add(userSecret);
+		
 		User user = User.builder().username(userDetails.getUsername()).firstname(userDetails.getFirstname())
 				.lastname(userDetails.getLastname()).email(userDetails.getEmail())
 				.phoneNumber(userDetails.getPhoneNumber()).role(Constant.USER_ROLE_END_USER)

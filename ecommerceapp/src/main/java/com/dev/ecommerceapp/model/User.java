@@ -56,4 +56,7 @@ public class User {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<CartItem> cartItems;
 	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Order> orders;
+	
 }

@@ -3,6 +3,7 @@ package com.dev.ecommerceapp.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -29,7 +30,7 @@ public class OrderItem {
 	@Column(name = "price")
 	private int price;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId("orderId")
 	@JoinColumn(name = "order_id")
 	private Order order;
