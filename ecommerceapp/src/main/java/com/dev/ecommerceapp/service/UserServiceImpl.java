@@ -37,14 +37,20 @@ public class UserServiceImpl {
 
 	@Transactional
 	public String signup(UserDetailsDTO userDetails) {
-		
-		User user = new User(userDetails.getUsername(), userDetails.getFirstname(), userDetails.getLastname(), userDetails.getEmail(), 
-					 userDetails.getPhoneNumber(), Constant.USER_ROLE_END_USER, CommonServiceImpl.getCurrentDateTime(), null);
+
+		UserSecret userSecret = UserSecret.builder()
+				.userPassword(passwordEncoder.encode(userDetails.getPassword()))
+				.createdTs(CommonServiceImpl.getCurrentDateTime()).build();
+
+		User user = User.builder().username(userDetails.getUsername()).firstname(userDetails.getFirstname())
+				.lastname(userDetails.getLastname()).email(userDetails.getEmail())
+				.phoneNumber(userDetails.getPhoneNumber()).role(Constant.USER_ROLE_END_USER)
+				.createdTS(CommonServiceImpl.getCurrentDateTime()).build();
+
+		user.setUserSecret(userSecret);
+		userSecret.setUser(user);
 		userRepository.save(user);
-		
-		UserSecret userSecret = new UserSecret(userDetails.getUsername(), passwordEncoder.encode(userDetails.getPassword()), CommonServiceImpl.getCurrentDateTime(), null);
-		userSecretRepository.save(userSecret);
-		
+
 		return "Signed Up Successfully";
 	}
 	
