@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #eef6ff 100%);
+  color: #111827;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app-shell {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 20px;
+}

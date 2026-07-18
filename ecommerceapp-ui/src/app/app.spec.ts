@@ -14,10 +14,11 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render title', () => {
+  it('should render the storefront hero', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ecommerceapp-ui');
+    expect(compiled.textContent).toContain('NovaCart');
+    expect(compiled.textContent).toContain('Shop the collection');
   });
 });

@@ -1,0 +1,44 @@
+<section class="auth-shell">
+  <div class="auth-card">
+    <div class="auth-header">
+      <p class="eyebrow">Account access</p>
+      <h2>{{ isLogin ? 'Welcome back' : 'Create your account' }}</h2>
+      <p>{{ isLogin ? 'Sign in to continue shopping and view your orders.' : 'Join NovaCart to save favorites and manage orders.' }}</p>
+    </div>
+
+    <form (ngSubmit)="submit()">
+      <label>
+        Username
+        <input type="text" [(ngModel)]="username" name="username" required />
+      </label>
+      <label>
+        Password
+        <input type="password" [(ngModel)]="password" name="password" required />
+      </label>
+
+      <ng-container *ngIf="!isLogin">
+        <label>
+          First name
+          <input type="text" [(ngModel)]="firstname" name="firstname" required />
+        </label>
+        <label>
+          Last name
+          <input type="text" [(ngModel)]="lastname" name="lastname" />
+        </label>
+        <label>
+          Email
+          <input type="email" [(ngModel)]="email" name="email" required />
+        </label>
+        <label>
+          Phone number
+          <input type="text" [(ngModel)]="phoneNumber" name="phoneNumber" />
+        </label>
+      </ng-container>
+
+      <button type="submit" [disabled]="loading">{{ loading ? 'Please wait...' : (isLogin ? 'Sign in' : 'Create account') }}</button>
+    </form>
+
+    <p class="toggle-link" (click)="toggleMode()">{{ isLogin ? 'Need an account? Create one' : 'Already have an account? Sign in' }}</p>
+    <p class="status" *ngIf="message">{{ message }}</p>
+  </div>
+</section>

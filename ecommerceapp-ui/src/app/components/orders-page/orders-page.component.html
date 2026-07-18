@@ -1,0 +1,24 @@
+<section class="orders-shell">
+  <div class="orders-card">
+    <div class="section-header">
+      <p class="eyebrow">Order history</p>
+      <h2>Your purchases</h2>
+    </div>
+
+    <div *ngIf="orders.length === 0" class="empty-state">
+      <p>No orders yet. Place your first order to see it here.</p>
+    </div>
+
+    <div *ngIf="orders.length > 0" class="orders-list">
+      <article class="order-item" *ngFor="let order of orders">
+        <div>
+          <h3>Order #{{ order.orderId }}</h3>
+          <p>Status: {{ order.status }}</p>
+        </div>
+        <div>
+          <strong>${{ order.amount }}</strong>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

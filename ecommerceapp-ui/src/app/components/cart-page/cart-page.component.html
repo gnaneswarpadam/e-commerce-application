@@ -1,0 +1,38 @@
+<section class="cart-shell">
+  <div class="cart-card">
+    <div class="section-header">
+      <p class="eyebrow">Your cart</p>
+      <h2>Ready to checkout?</h2>
+    </div>
+
+    <div *ngIf="items.length === 0" class="empty-state">
+      <p>Your cart is empty. Add products from the catalog to get started.</p>
+      <a class="btn" routerLink="/">Continue shopping</a>
+    </div>
+
+    <div *ngIf="items.length > 0" class="cart-list">
+      <article class="cart-item" *ngFor="let item of items">
+        <div class="item-details">
+          <h3>{{ item.product.name }}</h3>
+          <p>{{ item.product.description }}</p>
+          <span class="stock-badge" [class.out-of-stock]="item.product.count <= 0">{{ item.product.count > 0 ? 'In stock' : 'Out of stock' }}</span>
+        </div>
+        <div class="item-actions">
+          <div class="quantity-controls">
+            <button type="button" class="qty-btn" (click)="changeQuantity(item, -1)">−</button>
+            <span class="qty-value">{{ item.quantity }}</span>
+            <button type="button" class="qty-btn" (click)="changeQuantity(item, 1)">+</button>
+          </div>
+          <strong>${{ item.product.price * item.quantity }}</strong>
+          <button type="button" class="secondary-btn" (click)="remove(item.product.id)">Remove</button>
+        </div>
+      </article>
+      <div class="checkout-row">
+        <strong>Total: ${{ total() }}</strong>
+        <button type="button" (click)="checkout()">Place order</button>
+      </div>
+    </div>
+
+    <p class="status" *ngIf="message">{{ message }}</p>
+  </div>
+</section>

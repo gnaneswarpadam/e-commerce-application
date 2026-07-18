@@ -1,0 +1,69 @@
+<section class="storefront-shell">
+  <header class="hero-banner">
+    <div class="hero-copy">
+      <p class="eyebrow">Premium essentials</p>
+      <h1>Elevated shopping for modern living.</h1>
+      <p class="hero-text">Browse curated products, manage your cart, and keep your account details close at hand.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#products">Shop now</a>
+        <a class="btn btn-secondary" routerLink="/cart">View cart</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="promo-card">
+        <p class="eyebrow">New season</p>
+        <h3>Fresh arrivals with thoughtful details and everyday comfort.</h3>
+      </div>
+    </div>
+  </header>
+
+  <section class="topbar-row">
+    <div class="brand-block">
+      <span class="brand-mark">N</span>
+      <div>
+        <p class="eyebrow">NovaCart</p>
+        <h2>Everyday essentials, reimagined</h2>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <a class="nav-link" routerLink="/cart">Cart</a>
+      <a class="nav-link" routerLink="/orders">Orders</a>
+      <a class="nav-link" [routerLink]="(authService.authenticated$ | async) ? '/profile' : '/auth'">{{ (authService.authenticated$ | async) ? 'Profile' : 'Login' }}</a>
+    </div>
+  </section>
+
+  <section id="products" class="product-section">
+    <div class="section-header">
+      <p class="eyebrow">Best sellers</p>
+      <h3>Modern favorites built for everyday moments.</h3>
+    </div>
+
+    <div *ngIf="loading" class="status-card">Loading products…</div>
+    <div *ngIf="errorMessage" class="status-card error">{{ errorMessage }}</div>
+
+    <div class="product-grid" *ngIf="!loading && !errorMessage">
+      <article class="product-card" *ngFor="let product of products">
+        <div class="product-image" [style.background-image]="product.imageUrl ? 'url(' + product.imageUrl + ')' : 'linear-gradient(135deg, #ffe7d6, #dcecff)'"></div>
+        <div class="product-body">
+          <div class="product-meta">
+            <h4>{{ product.name }}</h4>
+            <span>${{ product.price }}</span>
+          </div>
+          <p>{{ product.description }}</p>
+          <div class="stock-row">
+            <span class="stock-badge" [class.out-of-stock]="product.count <= 0">{{ product.count > 0 ? 'In stock' : 'Out of stock' }}</span>
+            <span class="stock-copy" *ngIf="product.count > 0 && product.count <= 5">Only {{ product.count }} left</span>
+          </div>
+          <div class="quantity-row">
+            <button type="button" class="qty-btn" (click)="decrementQuantity(product)">−</button>
+            <span class="qty-value">{{ getQuantity(product.id) }}</span>
+            <button type="button" class="qty-btn" (click)="incrementQuantity(product)">+</button>
+          </div>
+          <button type="button" class="add-btn" (click)="addToCart(product)" [disabled]="product.count <= 0">
+            {{ product.count > 0 ? 'Add to cart' : 'Unavailable' }}
+          </button>
+        </div>
+      </article>
+    </div>
+  </section>
+</section>

@@ -1,0 +1,30 @@
+.orders-shell {
+  padding: 24px;
+}
+
+.orders-card {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 24px;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.orders-list {
+  display: grid;
+  gap: 12px;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  border-radius: 16px;
+  background: #f8fafc;
+}
+
+.empty-state {
+  color: #64748b;
+}

@@ -1,0 +1,26 @@
+<section class="profile-shell">
+  <div class="profile-card">
+    <div class="section-header">
+      <p class="eyebrow">Profile</p>
+      <h2>Your account details</h2>
+    </div>
+
+    <div *ngIf="loading" class="status-card">Loading profile…</div>
+
+    <div *ngIf="!loading && user" class="profile-body">
+      <div class="profile-avatar">{{ user.firstname?.charAt(0) || user.username.charAt(0) }}</div>
+      <div class="profile-details">
+        <h3>{{ user.firstname }} {{ user.lastname }}</h3>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone:</strong> {{ user.phoneNumber }}</p>
+        <p><strong>Role:</strong> {{ user.role || 'Customer' }}</p>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+      <a class="btn" routerLink="/">Back to home</a>
+      <button type="button" class="btn btn-danger" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</section>
